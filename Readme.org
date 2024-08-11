@@ -1,0 +1,7 @@
+Code to run species distribution models (SDMs) for VME indicator taxa in the Nordic Seas, and to predict possible changes due to climate change.
+
+[[file:code/Create_study_area.R][Create study area polygon]]
+
+[[file:code/Terrain_analysis.R][Create terrain parameter rasters]]
+
+[[file:code/Climate_rasters.R][Climate rasters]]
