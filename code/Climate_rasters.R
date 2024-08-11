@@ -15,7 +15,7 @@ make.raster <- function(file.in, file.out){
   dt <- tidync(file.in) %>%
     hyper_filter(
       y = index > 550,
-      x = index > 400 & index < 850) %>%
+      x = index > 400 & index < 900) %>%
     hyper_tibble() %>%
     mutate(lat = y / 4 - 89.875,
            lon = x / 4 -179.875,
@@ -60,15 +60,16 @@ for (i in 1:12){
 r1 <- rast(files.out[11])
 r2 <- rast(files.out[12])
 r <- sqrt(r1^2 + r2^2)
-writeRaster(r, str_c(path.out, "CNRM_hist_bottom_cs_1999-2014.tif"))
+writeRaster(r, str_c(path.out, "CNRM_hist_bottom_cs_1999-2014.tif"),
+                     overwrite = TRUE)
 file.remove(files.out[11])
 file.remove(files.out[12])
 tmpFiles(current = TRUE, remove = TRUE)
 
 ## GFDL_hist
 
-path.in <-"/home/julian/Documents/Climate_predictions/NEMO-ERSEM/GFDL_hist/bottom/"
-path.out <-"/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_hist/"
+path.in <- "/home/julian/Documents/Climate_predictions/NEMO-ERSEM/GFDL_hist/bottom/"
+path.out <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_hist/"
 
 files <- list.files(path.in, pattern = ".nc")
 names <- str_replace(files, ".nc", "")
@@ -81,12 +82,12 @@ for (i in 1:12){
               file.out = files.out[i])
 }
 
-
 r1 <- rast(files.out[11])
 r2 <- rast(files.out[12])
 r <- sqrt(r1^2 + r2^2)
 
-writeRaster(r, str_c(path.out, "GFDL_hist_bottom_cs_1999-2014.tif"))
+writeRaster(r, str_c(path.out, "GFDL_hist_bottom_cs_1999-2014.tif"),
+            overwrite = TRUE)
 file.remove(files.out[11])
 file.remove(files.out[12])
 tmpFiles(current = TRUE, remove = TRUE)
@@ -109,7 +110,7 @@ make.rasters <- function(path.in, path.out){
     dt <- tidync(files.in[i]) %>%
       hyper_filter(
         y = index > 550,
-        x = index > 400 & index < 850) %>%
+        x = index > 400 & index < 900) %>%
       hyper_tibble() %>%
       mutate(lat = y / 4 - 89.875,
              lon = x / 4 -179.875,
@@ -142,9 +143,9 @@ make.rasters(path.in = "/home/julian/Documents/Climate_predictions/NEMO-ERSEM/CN
 
 f1 <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/CNRM_ssp126/CNRM_ssp126_bottom_uo_2055-2070.tif"
 f2 <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/CNRM_ssp126/CNRM_ssp126_bottom_vo_2055-2070.tif"
-r <- sqrt(rast(r1)^2 + rast(r2)^2)
+r <- sqrt(rast(f1)^2 + rast(f2)^2)
 
-writeRaster(r, "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/CNRM_ssp126/CNRM_ssp126_bottom_cs_2055-2070.tif")
+writeRaster(r, "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/CNRM_ssp126/CNRM_ssp126_bottom_cs_2055-2070.tif", overwrite = TRUE)
 
 file.remove(f1)
 file.remove(f2)
@@ -157,8 +158,7 @@ make.rasters(path.in = "/home/julian/Documents/Climate_predictions/NEMO-ERSEM/CN
 
 # Current speed data missing in CDF.  Assume same as in ssp126
 
-
-                                        #-------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 
 
 make.rasters(path.in = "/home/julian/Documents/Climate_predictions/NEMO-ERSEM/GFDL_ssp126/bottom/",
@@ -166,12 +166,10 @@ make.rasters(path.in = "/home/julian/Documents/Climate_predictions/NEMO-ERSEM/GF
 
 f1 <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp126/GFDL_ssp126_bottom_uo_2055-2070.tif"
 f2 <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp126/GFDL_ssp126_bottom_vo_2055-2070.tif"
-r1 <- rast(f1)
-r2 <- rast(f2)
 
-r <- sqrt(r1^2 + r2^2)
+r <- sqrt(rast(f1)^2 + rast(f2)^2)
 
-writeRaster(r, "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp126/GFDL_ssp126_bottom_cs_2055-2070.tif")
+writeRaster(r, "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp126/GFDL_ssp126_bottom_cs_2055-2070.tif", overwrite = TRUE)
 
 file.remove(f1)
 file.remove(f2)
@@ -184,12 +182,10 @@ make.rasters(path.in = "/home/julian/Documents/Climate_predictions/NEMO-ERSEM/GF
 f1 <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp370/GFDL_ssp370_bottom_uo_2055-2070.tif"
 f2 <- "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp370/GFDL_ssp370_bottom_vo_2055-2070.tif"
 
-r1 <- rast(f1)
-r2 <- rast(f2)
+r <- sqrt(rast(f1)^2 + rast(f2)^2)
 
-r <- sqrt(r1^2 + r2^2)
 
-writeRaster(r, "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp370/GFDL_ssp370_bottom_cs_2055-2070.tif")
+writeRaster(r, "/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_ssp370/GFDL_ssp370_bottom_cs_2055-2070.tif", overwrite = TRUE)
 
 file.remove(f1)
 file.remove(f2)
