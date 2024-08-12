@@ -5,3 +5,7 @@ Code to run species distribution models (SDMs) for VME indicator taxa in the Nor
 [[file:code/Terrain_analysis.R][Create terrain parameter rasters]]
 
 [[file:code/Climate_rasters.R][Climate rasters]]
+
+[[file:code/VME_datasets.R][VME data]]
+
+[[file:code/Backgound_and_bias.R][Background and bias]]
