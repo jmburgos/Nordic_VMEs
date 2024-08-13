@@ -1,11 +1,43 @@
 Code to run species distribution models (SDMs) for VME indicator taxa in the Nordic Seas, and to predict possible changes due to climate change.
 
 [[file:code/Create_study_area.R][Create study area polygon]]
+Code to create polygon for the study area.
+
+Study area : -45 to 38 Longitude, 56 to 83 Latitude, not including the Baltic Sea
+Resolution: 500m
+Projection: "+proj=laea +lat_0=69 +lon_0=-4 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0",
 
 [[file:code/Terrain_analysis.R][Create terrain parameter rasters]]
+Code to generate terrain analysis rasters from GEBCO data in the study area.
+Parameters are calculated at two scales: 3 cells (~1500m) and 21 cells (~10km).  The parameters calculated are:
+
+- depth
+- slope
+- aspect (as northness and eastness)
+- vector ruggedness measure
+- topographic position index
+- profile curvature
+- planar curvature
 
 [[file:code/Climate_rasters.R][Climate rasters]]
+Code to generate rasters from the Mission Atlantic climate models (CMRM and GFDL) The code produces tree set of rasters for each model.  The "historical" period, with average conditions between 1990 and 2014, and "future", defined as the average condittions for the period 2055-2070 under two climate change scenarios (SSP1.26 and SSP3.70).  The following parameters are obtained:
 
-[[file:code/VME_datasets.R][VME data]]
+- uo: velocities along the X axis [m/s]
+- vo: velocities along the Y axis [m/s]
+- thetao_con: conservative temperature [Celsius]
+- so_abs: absolute salinity
+- N1_p: phosphate [mmolP/m3]
+- N3_n: nitrate [mmolN/m3]
+- N4_n: ammonium [mmolN/m3]
+- N5_s: silicate [mmolSi/m3]
+- O2_o: dissolved oxygen [mmol/m3]
+- O3_pH: pH
+- O3_Om_arg: aragonite saturation state
+- Net_PelBen_POC_result: total POC flux incorporated in the sediment [mgC/m2]
+
+Current speed is calculated as sqrt(uo^2 + vo^2)
+
+[[file:code/VME_datasets.R][Compile VME data]]
+This code read the NovasArc VME database, and collects records in OBIS for the same taxa.
 
 [[file:code/Backgound_and_bias.R][Background and bias]]
