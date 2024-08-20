@@ -46,6 +46,6 @@ This code read the NovasArc VME database, and collects records in OBIS for the s
 
 [[file:code/Correlations.R][Correlation among predictors]]
 
-[[roam:][Functions for (cross)valiation]]
+[[file:code/Functions.R][Functions for (cross)validation]]
 
 [[file:code/Random_forest.R][Random forest modelling]]
