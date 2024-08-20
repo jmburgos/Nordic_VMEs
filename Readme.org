@@ -41,3 +41,11 @@ Current speed is calculated as sqrt(uo^2 + vo^2)
 This code read the NovasArc VME database, and collects records in OBIS for the same taxa.
 
 [[file:code/Backgound_and_bias.R][Background and bias]]
+
+[[file:code/Load_predictors.R][Load preditive layers]]
+
+[[file:code/Correlations.R][Correlation among predictors]]
+
+[[roam:][Functions for (cross)valiation]]
+
+[[file:code/Random_forest.R][Random forest modelling]]
