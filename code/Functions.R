@@ -33,7 +33,7 @@ CV <- function(obs, fold, pred) {
     })
     TSS[i] <- max(tss)
 
-    COR[i] <- cor(as.numeric(obs[foldvector == i]), pred[[i]])
+    COR[i] <- cor(as.numeric(obs[fold == i]), pred[[i]])
   }
 
   res <- tibble(auc = AUC, pauc = PAUC, maxTSS = TSS,cor = COR)

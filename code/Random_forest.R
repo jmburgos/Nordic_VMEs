@@ -128,6 +128,10 @@ rpr <- predict(env_cnrm, rf, type = "prob", index = 2)
 rpr126 <- predict(env_cnrm_126, rf, type = "prob", index = 2)
 rpr370 <- predict(env_cnrm_370, rf, type = "prob", index = 2)
 
+writeRaster(rpr, "./prediction/rf_4_present.tif", overwrite = TRUE)
+writeRaster(rpr, "./prediction/rf_4_ssp126.tif", overwrite = TRUE)
+writeRaster(rpr, "./prediction/rf_4_ssp370.tif", overwrite = TRUE)
+
 
 ## Need to do validation of the full model
 
@@ -148,6 +152,7 @@ ggplot(data = gini, aes(y = reorder(var, score))) +
         axis.text = element_text(size = 12),
         axis.title = element_text(size = 14))
 
+## Variable effects plot
 
 par(mfrow = c(4, 2), cex = 0.77)
 for (i in 1:8){
@@ -155,29 +160,3 @@ for (i in 1:8){
               x.var = gini$var[i],
               which.class = 1, main = gini$var[i], xlab = "")
 }
-
-
-## Variable effects plots, top 8
-rf.var.names <- data.frame(cbind(var = c("tempmean", "sil", "cfp", "arag",
-                                         "brim", "bat", "slope", "par", "salmean",
-                                         "north", "east", "planc", "profc"
-                                         ),
-                                 name = c("Temperature", "Silicate", "Human coastal footprint",
-                                          "Aragonite", "Relative exposure index", "Bathymetry",
-                                          "Slope", "Photosynthetically active radiation",  "Salinity",
-                                          "Northerness", "Easterness", "Plan curvature",
-                                          "Profile curvature")))
-par(mfrow = c(4, 2), cex = 0.77)
-for (i in 1:8){
-  partialPlot(predrf, fulldowndf, x.var = rf.var.names$var[i],
-              which.class = 1, main = rf.var.names$name[i], xlab = "")
-}
-
-## Variable effects plot, rest
-par(mfrow = c(3,2))
-for (i in 9:13){
-  partialPlot(predrf, fulldowndf, x.var = rf.var.names$var[i],
-              which.class = 1, main = rf.var.names$name[i], xlab = "", ylim = c(-3.5, 4.5))
-}
-
-gc()
