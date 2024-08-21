@@ -47,7 +47,7 @@ for(VME_i in unique(vme$vme)){#unique(vme$vme)){
   # CNRM
   PredVars<-c('depth', 'planc3', 'profc3', 'slope21', 'slope3', 'tpi21', 'tpi3', 'vrm21', 'vrm3',"CNRM_cs", "CNRM_phos", "CNRM_nitrate","CNRM_ammonium","CNRM_silicate","CNRM_POC_sed","CNRM_oxygen","CNRM_arag_sat","CNRM_pH","CNRM_sal","CNRM_temp")
   
-  cat("maxent on CNRM start---")
+  cat("maxent on CNRM start---") 
   mod2 <- maxent(x=env_df[,PredVars], ## env conditions
                  p=env_df$occ,
                  #a=ve1,## 1:presence or 0:absence
