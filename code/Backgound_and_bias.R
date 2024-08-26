@@ -77,7 +77,7 @@ vmec <- cells(bat, vect(vme)) %>%
   distinct()
 
 ## Load rasters with predictors
-files1 <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/terrain_rasters", full.names = TRUE)
+files_terr <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/terrain_rasters", full.names = TRUE)
 tnames <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/terrain_rasters") %>%
   str_replace(".tif", "")
 tnames[1] <- "depth"
@@ -86,38 +86,39 @@ mnames <- c("cs", "phos", "nitrate", "ammonium", "silicate", "POC_sed", "oxygen"
 
 
 ## Present - CNRM model
-files2 <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/CNRM_hist",
+files_cnnrm <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/CNRM_hist",
                    full.names = TRUE)
 
 ## Present - GFDL model
-files3 <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_hist",
+files_gfdl <- list.files("/home/julian/Documents/SDM_VMEs_Nordic/climate_rasters/GFDL_hist",
                    full.names = TRUE)
 
 ## Terrain and CNRM model in background points
-env1 <- rast(c(files1, files2))
+env1 <- rast(c(files_terr, files_cnrm))
 names(env1) <- c(tnames, mnames)
-be1 <- extract(env1, bak) %>%
+be1 <- extract(env1, bak, xy = TRUE) %>%
   mutate(occ = 0) %>%
   relocate(occ) %>%
   write_rds("./data/backgr_terrain_cnrm_present.rds")
 
+
 ## Terrain and GFDL model in background points
-env2 <- rast(c(files1, files3))
+env2 <- rast(c(files_terr, files_gfdl))
 names(env2) <- c(tnames, mnames)
-be2 <- extract(env2, bak) %>%
+be2 <- extract(env2, bak, xy = TRUE) %>%
   mutate(occ = 0) %>%
   relocate(occ) %>%
   write_rds("./data/backgr_terrain_gfdl_present.rds")
 
 ## Terrain and CNRM model in vme locations
-ve1 <- extract(env1, vmec$cell) %>%
+ve1 <- extract(env1, vmec$cell, xy = TRUE) %>%
   mutate(vme = vmec$vme,
          occ = 1) %>%
   relocate(vme, occ) %>%
   write_rds("./data/vme_terrain_cnrm_present.rds")
 
 ## Terrain and CNRM model in vme locations
-ve2 <- extract(env2, vmec$cell) %>%
+ve2 <- extract(env2, vmec$cell, xy = TRUE) %>%
   mutate(vme = vmec$vme,
          occ = 1) %>%
   relocate(vme, occ) %>%

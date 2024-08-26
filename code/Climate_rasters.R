@@ -94,11 +94,11 @@ tmpFiles(current = TRUE, remove = TRUE)
 
 ############################################################################
 
-make.rasters <- function(path.in, path.out){
+make.rasters <- function(path.in, path.out) {
 
-  files <- list.files(path.in, pattern = ".nc")
-  names <- str_replace(files, ".nc", "") %>%
-    str_replace("2015-2070", "2055-2070")
+  files <- list.files (path.in, pattern = ".nc")
+  names <- str_replace (files, ".nc", "") %>%
+    str_replace ("2015-2070", "2055-2070")
 
   files.in <- str_c(path.in, files)
   files.out <- str_c(path.out, names, ".tif")
